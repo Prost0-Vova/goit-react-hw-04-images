@@ -37,7 +37,7 @@ export  function App () {
 
     prevPage = page;
     prevQuery = query;
-  }, [page, query]);
+  }, [page, query, fetchImages]);
 
 
   const fetchImages = () => {
