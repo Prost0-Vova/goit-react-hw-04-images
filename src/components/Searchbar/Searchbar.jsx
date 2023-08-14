@@ -1,31 +1,29 @@
 
 import { Header, SearchForm, Submit, Input } from './Searchbar.styled';
-import React, { Component } from 'react';
+import {useState}from 'react';
 import PropTypes from 'prop-types';
 
 
-class Searchbar extends Component {
-  state = {
-    query: '',
+export function Searchbar({onSubmit})  {
+  const [query, setQuery] = useState('');
+
+ const handleChange = e => {
+    setQuery(e.target.value)
   };
 
-  handleChange = e => {
-    this.setState({ query: e.target.value });
-  };
-
-  handleSubmit = e => {
+const  handleSubmit = e => {
     e.preventDefault();
-    if (!this.state.query.trim()) {
+    if (!query.trim()) {
       return;
     }
-    this.props.onSubmit(this.state.query);
-    this.setState({ query: '' });
+    onSubmit(query)
+    setQuery('')
   };
 
-  render() {
+ 
     return (
       <Header>
-        <SearchForm onSubmit={this.handleSubmit}>
+        <SearchForm onSubmit={handleSubmit}>
           <Submit type="submit">
            
           </Submit>
@@ -35,14 +33,14 @@ class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search..."
-            value={this.state.query}
-            onChange={this.handleChange}
+            value={query}
+            onChange={handleChange}
           />
         </SearchForm>
       </Header>
     );
   }
-}
+
 
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
